@@ -14,7 +14,7 @@
             .then((reg) => {
               console.log("sw registered", reg);
             })
-            .then((err) => {
+            .catch((err) => {
               console.log("sw was not registered", err);
             });
         });
