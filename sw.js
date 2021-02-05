@@ -3,11 +3,11 @@ const resourcesToPrecache = [
   "/",
   "index.html",
   "style.css",
-  "assets/bart",
-  "assets/homer",
-  "assets/lisa",
-  "assets/maggie",
-  "assets/marge",
+  "assets/bart.jpg",
+  "assets/homer.jpg",
+  "assets/lisa.jpg",
+  "assets/maggie.jpg",
+  "assets/marge.jpg",
 ];
 
 self.addEventListener("install", (event) => {
