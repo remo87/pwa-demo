@@ -1,3 +1,20 @@
 .char-list {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 200px;
+  height: 400px;
+  margin: 5px;
+}
+
+.card img {
+  width: 200px;
+  height: 200px;
+}
+
+.card h4 {
+  text-align: center;
 }
