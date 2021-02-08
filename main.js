@@ -24,8 +24,9 @@ window.addEventListener("beforeinstallprompt", (e) => {
     } else {
       console.log("User canceled the install prompt");
     }
+    hideInstallPromo();
   });
-  showInstallPromo()
+  showInstallPromo();
 });
 
 // setTimeout(() => showInstallPromo(), 3000);
