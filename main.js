@@ -25,9 +25,10 @@ window.addEventListener("beforeinstallprompt", (e) => {
       console.log("User canceled the install prompt");
     }
   });
+  showInstallPromo()
 });
 
-setTimeout(() => showInstallPromo(), 3000);
+// setTimeout(() => showInstallPromo(), 3000);
 
 const showInstallPromo = () => {
   document.getElementById("modal").style.display = "flex";
