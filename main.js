@@ -16,16 +16,23 @@ if ("serviceWorker" in navigator) {
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  showInstallPromo();
-});
-
-const showInstallPromo = () => {
-  if (window.confirm("Do you want to install the app on your device?")) {
+  document.getElementById("modal-ok").addEventListener("click", (e) => {
+    console.log("should prompt");
     deferredPrompt.prompt();
     if (deferredPrompt.outcome === "accepted") {
       console.log("User accepted the install prompt");
     } else {
       console.log("User canceled the install prompt");
     }
-  }
+  });
+});
+
+setTimeout(() => showInstallPromo(), 3000);
+
+const showInstallPromo = () => {
+  document.getElementById("modal").style.display = "flex";
+};
+
+const hideInstallPromo = () => {
+  document.getElementById("modal").style.display = "none";
 };
