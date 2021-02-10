@@ -5,6 +5,7 @@ const applicationServerPublicKey =
 
 let isSubscribed = false;
 let swRegistration = null;
+let deferredPrompt;
 
 function urlB64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -21,7 +22,6 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-let deferredPrompt;
 
 if ("serviceWorker" in navigator && "PushManager" in window) {
   window.addEventListener("load", () => {
@@ -56,7 +56,6 @@ window.addEventListener("beforeinstallprompt", (e) => {
     }
     hideInstallPromo();
   });
-  deferredPrompt = null;
   showInstallPromo();
 });
 
