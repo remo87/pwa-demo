@@ -32,3 +32,33 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
+self.addEventListener("push", function (event) {
+  console.log("[Service Worker] Push Received.");
+  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+
+  const title = "Push Codelab";
+  const options = {
+    body: "Yay it works.",
+    icon: "icon-256.png",
+    badge: "icon-256.png",
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("[Service Worker] Notification click Received.");
+
+  const notification = event.notification;
+  const action = event.action;
+  // if (action === "close") notification.close();
+  // else
+  event.waitUntil(clients.openWindow("https://developers.google.com/web/"));
+});
+
+self.addEventListener("notificationclose", (event) => {
+  const notification = event.notification;
+  const primaryKey = notification.data.primaryKey;
+  console.log("[Service Worker] Close notification.", primaryKey);
+});

@@ -3,6 +3,9 @@
 const applicationServerPublicKey =
   "BHENLuD--woX1DilPIVzIwmBMpI47xih8jrej2_yGWo3B5eF-TlcYncH9omVkOJyPF2yT4CTUIwOgZ8AJQ_tiSM";
 
+let isSubscribed = false;
+let swRegistration = null;
+
 function urlB64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding)
@@ -26,6 +29,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
       .register("/sw.js")
       .then((reg) => {
         console.log("sw registered", reg);
+        swRegistration = swReg;
       })
       .catch((err) => {
         console.log("sw was not registered", err);
@@ -52,6 +56,9 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 Notification.requestPermission((status) => {
   console.log("Notification permission status", status);
+  if (Notification.permission === "granted") {
+    subscribeUser();
+  }
 });
 
 function displayNotification() {
@@ -77,3 +84,29 @@ const showInstallPromo = () => {
 const hideInstallPromo = () => {
   document.getElementById("modal").style.display = "none";
 };
+
+function subscribeUser() {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  swRegistration.pushManager
+    .subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerKey,
+    })
+    .then(function (subscription) {
+      console.log("User is subscribed:", subscription);
+
+      updateSubscriptionOnServer(subscription);
+
+      isSubscribed = true;
+
+      updateBtn();
+    })
+    .catch(function (err) {
+      console.log("Failed to subscribe the user: ", err);
+      updateBtn();
+    });
+}
+
+function updateSubscriptionOnServer(subscription) {
+  // TODO: Send subscription to application server
+}
