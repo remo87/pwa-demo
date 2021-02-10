@@ -27,6 +27,7 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
     navigator.serviceWorker
       .register("/sw.js")
       .then((reg) => {
+        swRegistration = swReg;
         Notification.requestPermission((status) => {
           console.log("Notification permission status", status);
           if (Notification.permission === "granted") {
@@ -34,7 +35,6 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
           }
         });
         console.log("sw registered", reg);
-        swRegistration = swReg;
       })
       .catch((err) => {
         console.log("sw was not registered", err);
@@ -72,7 +72,7 @@ function displayNotification() {
   }
 }
 
-setTimeout(() => displayNotification(), 3000);
+// setTimeout(() => displayNotification(), 3000);
 
 const showInstallPromo = () => {
   document.getElementById("modal").style.display = "flex";
