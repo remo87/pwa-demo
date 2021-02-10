@@ -68,7 +68,7 @@ function displayNotification() {
   }
 }
 
-// setTimeout(() => showInstallPromo(), 3000);
+setTimeout(() => displayNotification(), 3000);
 
 const showInstallPromo = () => {
   document.getElementById("modal").style.display = "flex";
