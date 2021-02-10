@@ -30,6 +30,12 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
       .then((reg) => {
         console.log("sw registered", reg);
         swRegistration = swReg;
+        Notification.requestPermission((status) => {
+          console.log("Notification permission status", status);
+          if (Notification.permission === "granted") {
+            subscribeUser();
+          }
+        });
       })
       .catch((err) => {
         console.log("sw was not registered", err);
@@ -52,13 +58,6 @@ window.addEventListener("beforeinstallprompt", (e) => {
   });
   deferredPrompt = null;
   showInstallPromo();
-});
-
-Notification.requestPermission((status) => {
-  console.log("Notification permission status", status);
-  if (Notification.permission === "granted") {
-    subscribeUser();
-  }
 });
 
 function displayNotification() {
