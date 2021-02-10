@@ -22,20 +22,19 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-
 if ("serviceWorker" in navigator && "PushManager" in window) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("/sw.js")
       .then((reg) => {
-        console.log("sw registered", reg);
-        swRegistration = swReg;
         Notification.requestPermission((status) => {
           console.log("Notification permission status", status);
           if (Notification.permission === "granted") {
             subscribeUser();
           }
         });
+        console.log("sw registered", reg);
+        swRegistration = swReg;
       })
       .catch((err) => {
         console.log("sw was not registered", err);
